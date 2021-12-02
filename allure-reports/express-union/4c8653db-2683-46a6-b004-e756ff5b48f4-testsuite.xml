@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<alr:test-suite xmlns:alr="urn:model.allure.qatools.yandex.ru" start="1638402460837" stop="1638402483064" version="1.4.0">
+  <name>service_orangeom</name>
+  <test-cases>
+    <test-case start="1638402460840" stop="1638402460842" status="canceled">
+      <name>testIfConnectorOffersEndpointToPauseAndContinueProcessingProcessingOfPayment</name>
+      <failure>
+        <message></message>
+        <stack-trace>#0 /tests/vendor/codeception/codeception/src/Codeception/Test/Test.php(79): Codeception\Test\Test-&gt;ignoreIfMetadataBlockedStart()
+#1 /tests/vendor/phpunit/phpunit/src/Framework/TestSuite.php(755): Codeception\Test\Test-&gt;run(Object(PHPUnit\Framework\TestResult))
+#2 /tests/vendor/codeception/phpunit-wrapper/src/Runner.php(110): PHPUnit\Framework\TestSuite-&gt;run(Object(PHPUnit\Framework\TestResult))
+#3 /tests/vendor/codeception/codeception/src/Codeception/SuiteManager.php(158): Codeception\PHPUnit\Runner-&gt;doEnhancedRun(Object(Codeception\Suite), Object(PHPUnit\Framework\TestResult), Array)
+#4 /tests/vendor/codeception/codeception/src/Codeception/Codecept.php(193): Codeception\SuiteManager-&gt;run(Object(Codeception\PHPUnit\Runner), Object(PHPUnit\Framework\TestResult), Array)
+#5 /tests/vendor/codeception/codeception/src/Codeception/Codecept.php(160): Codeception\Codecept-&gt;runSuite(Array, 'service_orangeo...', 'OrangeOMSystemC...')
+#6 /tests/vendor/codeception/codeception/src/Codeception/Command/Run.php(391): Codeception\Codecept-&gt;run('service_orangeo...', 'OrangeOMSystemC...', Array)
+#7 /tests/vendor/symfony/console/Command/Command.php(255): Codeception\Command\Run-&gt;execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#8 /tests/vendor/symfony/console/Application.php(992): Symfony\Component\Console\Command\Command-&gt;run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 /tests/vendor/symfony/console/Application.php(255): Symfony\Component\Console\Application-&gt;doRunCommand(Object(Codeception\Command\Run), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 /tests/vendor/symfony/console/Application.php(148): Symfony\Component\Console\Application-&gt;doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 /tests/vendor/codeception/codeception/src/Codeception/Application.php(107): Symfony\Component\Console\Application-&gt;run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 /tests/vendor/codeception/codeception/codecept(43): Codeception\Application-&gt;run()
+#13 {main}</stack-trace>
+      </failure>
+      <labels>
+        <label name="testMethod" value="testIfConnectorOffersEndpointToPauseAndContinueProcessingProcessingOfPayment"/>
+        <label name="testClass" value="OrangeOMSystemCest"/>
+      </labels>
+    </test-case>
+    <test-case start="1638402460842" stop="1638402464822" status="passed">
+      <name>itCannotProcessATransactionWhenRemoteServerIsDown</name>
+      <steps>
+        <step start="1638402461336" stop="1638402461336" status="passed">
+          <name><![CDATA[have http header "x-api-key","TESTKEY"]]></name>
+        </step>
+        <step start="1638402461336" stop="1638402461336" status="passed">
+          <name><![CDATA[have http header "x-api-version","v1"]]></name>
+        </step>
+        <step start="1638402461337" stop="1638402461337" status="passed">
+          <name><![CDATA[have http header "content-type","application/json"]]></name>
+        </step>
+        <step start="1638402461337" stop="1638402461419" status="passed">
+          <name><![CDATA[send put "http://mockserver:1090/mockserver/reset"]]></name>
+        </step>
+        <step start="1638402461419" stop="1638402461423" status="passed">
+          <name><![CDATA[clear queue "Orange_paymentrequest"]]></name>
+        </step>
+        <step start="1638402461423" stop="1638402461424" status="passed">
+          <name><![CDATA[clear queue "Orange_statuscheck"]]></name>
+        </step>
+        <step start="1638402461424" stop="1638402461425" status="passed">
+          <name><![CDATA[clear queue "Orange_callback"]]></name>
+        </step>
+        <step start="1638402461425" stop="1638402461426" status="passed">
+          <name><![CDATA[clear queue "default"]]></name>
+        </step>
+        <step start="1638402461426" stop="1638402461434" status="passed">
+          <name><![CDATA[update in database "health_result",{"is_healthy":0,"info":"NOK"},{"label":"remote"}]]></name>
+        </step>
+        <step start="1638402461434" stop="1638402464818" status="passed">
+          <name><![CDATA[send post "/cashin/pay",{"amount":1000,"destination":"690754334","ptn":"9998547515","callbackUrl":"http://localhost:80/ping","service":"Cashin","spRef":null}]]></name>
+        </step>
+        <step start="1638402464818" stop="1638402464821" status="passed">
+          <name><![CDATA[see response code is 503]]></name>
+        </step>
+        <step start="1638402464821" stop="1638402464822" status="passed">
+          <name><![CDATA[see response contains json {"code":3020,"message":"Remote service is down. Try again later"}]]></name>
+        </step>
+      </steps>
+      <labels>
+        <label name="testMethod" value="itCannotProcessATransactionWhenRemoteServerIsDown"/>
+        <label name="testClass" value="OrangeOMSystemCest"/>
+      </labels>
+    </test-case>
+    <test-case start="1638402464823" stop="1638402465372" status="passed">
+      <name>itCannotProcessATransactionWithInvalidApiKey</name>
+      <steps>
+        <step start="1638402465286" stop="1638402465286" status="passed">
+          <name><![CDATA[have http header "x-api-key","TESTKEY"]]></name>
+        </step>
+        <step start="1638402465286" stop="1638402465286" status="passed">
+          <name><![CDATA[have http header "x-api-version","v1"]]></name>
+        </step>
+        <step start="1638402465287" stop="1638402465287" status="passed">
+          <name><![CDATA[have http header "content-type","application/json"]]></name>
+        </step>
+        <step start="1638402465287" stop="1638402465342" status="passed">
+          <name><![CDATA[send put "http://mockserver:1090/mockserver/reset"]]></name>
+        </step>
+        <step start="1638402465342" stop="1638402465344" status="passed">
+          <name><![CDATA[clear queue "Orange_paymentrequest"]]></name>
+        </step>
+        <step start="1638402465344" stop="1638402465345" status="passed">
+          <name><![CDATA[clear queue "Orange_statuscheck"]]></name>
+        </step>
+        <step start="1638402465345" stop="1638402465346" status="passed">
+          <name><![CDATA[clear queue "Orange_callback"]]></name>
+        </step>
+        <step start="1638402465347" stop="1638402465347" status="passed">
+          <name><![CDATA[clear queue "default"]]></name>
+        </step>
+        <step start="1638402465348" stop="1638402465348" status="passed">
+          <name><![CDATA[have http header "x-api-key","Invalid"]]></name>
+        </step>
+        <step start="1638402465348" stop="1638402465371" status="passed">
+          <name><![CDATA[send post "/cashin/pay",{"amount":1000,"destination":"690754334","ptn":"9998547515","callbackUrl":"http://localhost:80/ping","service":"Cashin","spRef":null}]]></name>
+        </step>
+        <step start="1638402465371" stop="1638402465372" status="passed">
+          <name><![CDATA[see response code is 401]]></name>
+        </step>
+        <step start="1638402465372" stop="1638402465372" status="passed">
+          <name><![CDATA[see response contains json {"code":2401,"message":"The api key is invalid: Invalid"}]]></name>
+        </step>
+      </steps>
+      <labels>
+        <label name="testMethod" value="itCannotProcessATransactionWithInvalidApiKey"/>
+        <label name="testClass" value="OrangeOMSystemCest"/>
+      </labels>
+    </test-case>
+    <test-case start="1638402465373" stop="1638402465956" status="passed">
+      <name>itCanReturnOkWhenPingEndpointIsCalled</name>
+      <steps>
+        <step start="1638402465867" stop="1638402465867" status="passed">
+          <name><![CDATA[have http header "x-api-key","TESTKEY"]]></name>
+        </step>
+        <step start="1638402465867" stop="1638402465867" status="passed">
+          <name><![CDATA[have http header "x-api-version","v1"]]></name>
+        </step>
+        <step start="1638402465867" stop="1638402465867" status="passed">
+          <name><![CDATA[have http header "content-type","application/json"]]></name>
+        </step>
+        <step start="1638402465868" stop="1638402465928" status="passed">
+          <name><![CDATA[send put "http://mockserver:1090/mockserver/reset"]]></name>
+        </step>
+        <step start="1638402465928" stop="1638402465930" status="passed">
+          <name><![CDATA[clear queue "Orange_paymentrequest"]]></name>
+        </step>
+        <step start="1638402465930" stop="1638402465931" status="passed">
+          <name><![CDATA[clear queue "Orange_statuscheck"]]></name>
+        </step>
+        <step start="1638402465931" stop="1638402465932" status="passed">
+          <name><![CDATA[clear queue "Orange_callback"]]></name>
+        </step>
+        <step start="1638402465933" stop="1638402465934" status="passed">
+          <name><![CDATA[clear queue "default"]]></name>
+        </step>
+        <step start="1638402465934" stop="1638402465956" status="passed">
+          <name><![CDATA[send get "/ping"]]></name>
+        </step>
+        <step start="1638402465956" stop="1638402465956" status="passed">
+          <name><![CDATA[see response code is 200]]></name>
+        </step>
+        <step start="1638402465956" stop="1638402465956" status="passed">
+          <name><![CDATA[see response contains json {"status":"OK"}]]></name>
+        </step>
+      </steps>
+      <labels>
+        <label name="testMethod" value="itCanReturnOkWhenPingEndpointIsCalled"/>
+        <label name="testClass" value="OrangeOMSystemCest"/>
+      </labels>
+    </test-case>
+    <test-case start="1638402465957" stop="1638402476711" status="passed">
+      <name>itCanRequestTokenAndSaveInRedis</name>
+      <steps>
+        <step start="1638402466525" stop="1638402466525" status="passed">
+          <name><![CDATA[have http header "x-api-key","TESTKEY"]]></name>
+        </step>
+        <step start="1638402466525" stop="1638402466525" status="passed">
+          <name><![CDATA[have http header "x-api-version","v1"]]></name>
+        </step>
+        <step start="1638402466525" stop="1638402466525" status="passed">
+          <name><![CDATA[have http header "content-type","application/json"]]></name>
+        </step>
+        <step start="1638402466526" stop="1638402466577" status="passed">
+          <name><![CDATA[send put "http://mockserver:1090/mockserver/reset"]]></name>
+        </step>
+        <step start="1638402466577" stop="1638402466578" status="passed">
+          <name><![CDATA[clear queue "Orange_paymentrequest"]]></name>
+        </step>
+        <step start="1638402466579" stop="1638402466579" status="passed">
+          <name><![CDATA[clear queue "Orange_statuscheck"]]></name>
+        </step>
+        <step start="1638402466579" stop="1638402466580" status="passed">
+          <name><![CDATA[clear queue "Orange_callback"]]></name>
+        </step>
+        <step start="1638402466580" stop="1638402466580" status="passed">
+          <name><![CDATA[clear queue "default"]]></name>
+        </step>
+        <step start="1638402466581" stop="1638402466591" status="passed">
+          <name><![CDATA[flush entire cache in redis ]]></name>
+        </step>
+        <step start="1638402471592" stop="1638402471609" status="passed">
+          <name><![CDATA[send put "http://mockserver:1090/mockserver/expectation",{"httpRequest":{"path":"/om/token"},"httpResponse":{"body":"{\n                  "access_token": "abcd-1234",\n                  "expires_in": 3600,...}]]></name>
+        </step>
+        <step start="1638402471610" stop="1638402471709" status="passed">
+          <name><![CDATA[send post "/cashout/pay",{"amount":1000,"destination":"690754334","ptn":"a78da89fafdaa","callbackUrl":"http://localhost:80/ping","service":"Cashout","spRef":null}]]></name>
+        </step>
+        <step start="1638402476709" stop="1638402476711" status="passed">
+          <name><![CDATA[see redis key contains "Orange:Cashout","abcd-1234"]]></name>
+        </step>
+      </steps>
+      <labels>
+        <label name="testMethod" value="itCanRequestTokenAndSaveInRedis"/>
+        <label name="testClass" value="OrangeOMSystemCest"/>
+      </labels>
+    </test-case>
+    <test-case start="1638402476712" stop="1638402482451" status="failed">
+      <name>itCanRequestNewTokenAndSaveInRedisIfOldOneHasExpiredInInitEndpoint</name>
+      <failure>
+        <message>The key "Orange:Cashout" contains "abcd-1234"
+Failed asserting that true is false.</message>
+        <stack-trace>#0 /tests/vendor/phpunit/phpunit/src/Framework/Constraint/Constraint.php(62): PHPUnit\Framework\Constraint\Constraint-&gt;fail(true, 'The key "Orange...')
+#1 /tests/vendor/phpunit/phpunit/src/Framework/Assert.php(2116): PHPUnit\Framework\Constraint\Constraint-&gt;evaluate(true, 'The key "Orange...')
+#2 /tests/vendor/phpunit/phpunit/src/Framework/Assert.php(1176): PHPUnit\Framework\Assert::assertThat(true, Object(PHPUnit\Framework\Constraint\IsFalse), 'The key "Orange...')
+#3 /tests/vendor/codeception/codeception/src/Codeception/Util/Shared/Asserts.php(273): PHPUnit\Framework\Assert::assertFalse(true, 'The key "Orange...')
+#4 /tests/vendor/codeception/codeception/src/Codeception/Module/Redis.php(411): Codeception\Module-&gt;assertFalse(true, 'The key "Orange...')
+#5 [internal function]: Codeception\Module\Redis-&gt;dontSeeRedisKeyContains('Orange:Cashout', 'abcd-1234')
+#6 /tests/vendor/codeception/codeception/src/Codeception/Step.php(265): call_user_func_array(Array, Array)
+#7 /tests/vendor/codeception/codeception/src/Codeception/Scenario.php(72): Codeception\Step-&gt;run(Object(Codeception\Lib\ModuleContainer))
+#8 /tests/tests/_helpers/_generated/Service_orangeomTesterActions.php(3429): Codeception\Scenario-&gt;runStep(Object(Codeception\Step\Action))
+#9 /tests/tests/service_orangeom/OrangeOMSystemCest.php(138): Service_orangeomTester-&gt;dontSeeRedisKeyContains('Orange:Cashout', 'abcd-1234')
+#10 [internal function]: OrangeOMSystemCest-&gt;itCanRequestNewTokenAndSaveInRedisIfOldOneHasExpiredInInitEndpoint(Object(Service_orangeomTester))
+#11 /tests/vendor/codeception/codeception/src/Codeception/Lib/Di.php(127): ReflectionMethod-&gt;invokeArgs(Object(OrangeOMSystemCest), Array)
+#12 /tests/vendor/codeception/codeception/src/Codeception/Test/Cest.php(138): Codeception\Lib\Di-&gt;injectDependencies(Object(OrangeOMSystemCest), 'itCanRequestNew...', Array)
+#13 /tests/vendor/codeception/codeception/src/Codeception/Test/Cest.php(150): Codeception\Test\Cest-&gt;invoke('itCanRequestNew...', Array)
+#14 /tests/vendor/codeception/codeception/src/Codeception/Test/Cest.php(82): Codeception\Test\Cest-&gt;executeTestMethod(Object(Service_orangeomTester))
+#15 /tests/vendor/codeception/codeception/src/Codeception/Test/Test.php(88): Codeception\Test\Cest-&gt;test()
+#16 /tests/vendor/phpunit/phpunit/src/Framework/TestSuite.php(755): Codeception\Test\Test-&gt;run(Object(PHPUnit\Framework\TestResult))
+#17 /tests/vendor/codeception/phpunit-wrapper/src/Runner.php(110): PHPUnit\Framework\TestSuite-&gt;run(Object(PHPUnit\Framework\TestResult))
+#18 /tests/vendor/codeception/codeception/src/Codeception/SuiteManager.php(158): Codeception\PHPUnit\Runner-&gt;doEnhancedRun(Object(Codeception\Suite), Object(PHPUnit\Framework\TestResult), Array)
+#19 /tests/vendor/codeception/codeception/src/Codeception/Codecept.php(193): Codeception\SuiteManager-&gt;run(Object(Codeception\PHPUnit\Runner), Object(PHPUnit\Framework\TestResult), Array)
+#20 /tests/vendor/codeception/codeception/src/Codeception/Codecept.php(160): Codeception\Codecept-&gt;runSuite(Array, 'service_orangeo...', 'OrangeOMSystemC...')
+#21 /tests/vendor/codeception/codeception/src/Codeception/Command/Run.php(391): Codeception\Codecept-&gt;run('service_orangeo...', 'OrangeOMSystemC...', Array)
+#22 /tests/vendor/symfony/console/Command/Command.php(255): Codeception\Command\Run-&gt;execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#23 /tests/vendor/symfony/console/Application.php(992): Symfony\Component\Console\Command\Command-&gt;run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#24 /tests/vendor/symfony/console/Application.php(255): Symfony\Component\Console\Application-&gt;doRunCommand(Object(Codeception\Command\Run), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#25 /tests/vendor/symfony/console/Application.php(148): Symfony\Component\Console\Application-&gt;doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#26 /tests/vendor/codeception/codeception/src/Codeception/Application.php(107): Symfony\Component\Console\Application-&gt;run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#27 /tests/vendor/codeception/codeception/codecept(43): Codeception\Application-&gt;run()
+#28 {main}</stack-trace>
+      </failure>
+      <steps>
+        <step start="1638402477241" stop="1638402477241" status="passed">
+          <name><![CDATA[have http header "x-api-key","TESTKEY"]]></name>
+        </step>
+        <step start="1638402477241" stop="1638402477241" status="passed">
+          <name><![CDATA[have http header "x-api-version","v1"]]></name>
+        </step>
+        <step start="1638402477241" stop="1638402477242" status="passed">
+          <name><![CDATA[have http header "content-type","application/json"]]></name>
+        </step>
+        <step start="1638402477242" stop="1638402477297" status="passed">
+          <name><![CDATA[send put "http://mockserver:1090/mockserver/reset"]]></name>
+        </step>
+        <step start="1638402477298" stop="1638402477299" status="passed">
+          <name><![CDATA[clear queue "Orange_paymentrequest"]]></name>
+        </step>
+        <step start="1638402477299" stop="1638402477300" status="passed">
+          <name><![CDATA[clear queue "Orange_statuscheck"]]></name>
+        </step>
+        <step start="1638402477300" stop="1638402477300" status="passed">
+          <name><![CDATA[clear queue "Orange_callback"]]></name>
+        </step>
+        <step start="1638402477300" stop="1638402477301" status="passed">
+          <name><![CDATA[clear queue "default"]]></name>
+        </step>
+        <step start="1638402477301" stop="1638402477312" status="passed">
+          <name><![CDATA[flush entire cache in redis ]]></name>
+        </step>
+        <step start="1638402477312" stop="1638402477338" status="passed">
+          <name><![CDATA[send put "http://mockserver:1090/mockserver/expectation",{"httpRequest":{"path":"/om/token"},"httpResponse":{"body":"{\n                  "access_token": "new-token",\n                  "expires_in": 3600,...}]]></name>
+        </step>
+        <step start="1638402477338" stop="1638402477355" status="passed">
+          <name><![CDATA[send put "http://mockserver:1090/mockserver/expectation",{"httpRequest":{"path":"/om/cashout/init"},"httpResponse":{"statusCode":401,"body":"{\n                  "fault": {\n                    "code": 900...}]]></name>
+        </step>
+        <step start="1638402477356" stop="1638402477356" status="passed">
+          <name><![CDATA[have in redis "string","Orange:Cashout","s:144:"a:2:{i:0;s:9:"abcd-1234";i:1;O:8:"DateTime":3:{s:4:"date";s:26:"2050-08-04 09:43:20.467598";s:13:"timezone_type";i:3;s:8:"timezone";s:3:"UTC";}}";"]]></name>
+        </step>
+        <step start="1638402477357" stop="1638402477357" status="passed">
+          <name><![CDATA[see redis key contains "Orange:Cashout","abcd-1234"]]></name>
+        </step>
+        <step start="1638402477357" stop="1638402477358" status="passed">
+          <name><![CDATA[don't see redis key contains "Orange:Cashout","new-token"]]></name>
+        </step>
+        <step start="1638402477358" stop="1638402477434" status="passed">
+          <name><![CDATA[send post "/cashout/pay",{"amount":1000,"destination":"690754334","ptn":"a78da89fafdaa","callbackUrl":"http://localhost:80/ping","service":"Cashout","spRef":null}]]></name>
+        </step>
+        <step start="1638402482435" stop="1638402482436" status="failed">
+          <name><![CDATA[don't see redis key contains "Orange:Cashout","abcd-1234"]]></name>
+        </step>
+      </steps>
+      <attachments>
+        <attachment title="body" source="88c3ae814604725435acd31449cc4e3bcea825f9-attachment.txt" type="text/plain"/>
+        <attachment title="response" source="88c3ae814604725435acd31449cc4e3bcea825f9-attachment.txt" type="text/plain"/>
+      </attachments>
+      <labels>
+        <label name="testMethod" value="itCanRequestNewTokenAndSaveInRedisIfOldOneHasExpiredInInitEndpoint"/>
+        <label name="testClass" value="OrangeOMSystemCest"/>
+      </labels>
+    </test-case>
+    <test-case start="1638402482452" stop="1638402483064" status="passed">
+      <name>itCanReturnHealthStatus</name>
+      <steps>
+        <step start="1638402482957" stop="1638402482957" status="passed">
+          <name><![CDATA[have http header "x-api-key","TESTKEY"]]></name>
+        </step>
+        <step start="1638402482957" stop="1638402482957" status="passed">
+          <name><![CDATA[have http header "x-api-version","v1"]]></name>
+        </step>
+        <step start="1638402482957" stop="1638402482957" status="passed">
+          <name><![CDATA[have http header "content-type","application/json"]]></name>
+        </step>
+        <step start="1638402482957" stop="1638402483023" status="passed">
+          <name><![CDATA[send put "http://mockserver:1090/mockserver/reset"]]></name>
+        </step>
+        <step start="1638402483024" stop="1638402483026" status="passed">
+          <name><![CDATA[clear queue "Orange_paymentrequest"]]></name>
+        </step>
+        <step start="1638402483026" stop="1638402483027" status="passed">
+          <name><![CDATA[clear queue "Orange_statuscheck"]]></name>
+        </step>
+        <step start="1638402483028" stop="1638402483028" status="passed">
+          <name><![CDATA[clear queue "Orange_callback"]]></name>
+        </step>
+        <step start="1638402483029" stop="1638402483030" status="passed">
+          <name><![CDATA[clear queue "default"]]></name>
+        </step>
+        <step start="1638402483031" stop="1638402483062" status="passed">
+          <name><![CDATA[send get "/health"]]></name>
+        </step>
+        <step start="1638402483063" stop="1638402483063" status="passed">
+          <name><![CDATA[see response code is 200]]></name>
+        </step>
+        <step start="1638402483063" stop="1638402483063" status="passed">
+          <name><![CDATA[see response contains json {"components":[{"name":"cpu","status":"NOK"},{"name":"memory","status":"NOK"},{"name":"disk"},{"name":"db","status":"OK"}],"remote":{"status":"OK","info":"OK"},"workload":{"pending":0,"success":0,...}]]></name>
+        </step>
+      </steps>
+      <labels>
+        <label name="testMethod" value="itCanReturnHealthStatus"/>
+        <label name="testClass" value="OrangeOMSystemCest"/>
+      </labels>
+    </test-case>
+  </test-cases>
+</alr:test-suite>

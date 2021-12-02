@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<alr:test-suite xmlns:alr="urn:model.allure.qatools.yandex.ru" start="1638402422746" stop="1638402430618" version="1.4.0">
+  <name>service_orangeom</name>
+  <test-cases>
+    <test-case start="1638402422757" stop="1638402430616" status="failed">
+      <name>itCanPerformCashinWithImmediateSuccess</name>
+      <failure>
+        <message>Response JSON does not contain the provided JSON
+</message>
+        <stack-trace>#0 /tests/vendor/phpunit/phpunit/src/Framework/Constraint/Constraint.php(53): Codeception\PHPUnit\Constraint\JsonContains-&gt;matches('{"payload":{"sp...')
+#1 /tests/vendor/phpunit/phpunit/src/Framework/Assert.php(2116): PHPUnit\Framework\Constraint\Constraint-&gt;evaluate('{"payload":{"sp...', '')
+#2 /tests/vendor/codeception/codeception/src/Codeception/Module/REST.php(840): PHPUnit\Framework\Assert::assertThat('{"payload":{"sp...', Object(Codeception\PHPUnit\Constraint\JsonContains))
+#3 [internal function]: Codeception\Module\REST-&gt;seeResponseContainsJson(Array)
+#4 /tests/vendor/codeception/codeception/src/Codeception/Step.php(265): call_user_func_array(Array, Array)
+#5 /tests/vendor/codeception/codeception/src/Codeception/Scenario.php(72): Codeception\Step-&gt;run(Object(Codeception\Lib\ModuleContainer))
+#6 /tests/tests/_helpers/_generated/Service_orangeomTesterActions.php(1775): Codeception\Scenario-&gt;runStep(Object(Codeception\Step\Assertion))
+#7 /tests/tests/service_orangeom/OrangeOMCashinCest.php(36): Service_orangeomTester-&gt;seeResponseContainsJson(Array)
+#8 [internal function]: OrangeOMCashinCest-&gt;itCanPerformCashinWithImmediateSuccess(Object(Service_orangeomTester))
+#9 /tests/vendor/codeception/codeception/src/Codeception/Lib/Di.php(127): ReflectionMethod-&gt;invokeArgs(Object(OrangeOMCashinCest), Array)
+#10 /tests/vendor/codeception/codeception/src/Codeception/Test/Cest.php(138): Codeception\Lib\Di-&gt;injectDependencies(Object(OrangeOMCashinCest), 'itCanPerformCas...', Array)
+#11 /tests/vendor/codeception/codeception/src/Codeception/Test/Cest.php(150): Codeception\Test\Cest-&gt;invoke('itCanPerformCas...', Array)
+#12 /tests/vendor/codeception/codeception/src/Codeception/Test/Cest.php(82): Codeception\Test\Cest-&gt;executeTestMethod(Object(Service_orangeomTester))
+#13 /tests/vendor/codeception/codeception/src/Codeception/Test/Test.php(88): Codeception\Test\Cest-&gt;test()
+#14 /tests/vendor/phpunit/phpunit/src/Framework/TestSuite.php(755): Codeception\Test\Test-&gt;run(Object(PHPUnit\Framework\TestResult))
+#15 /tests/vendor/codeception/phpunit-wrapper/src/Runner.php(110): PHPUnit\Framework\TestSuite-&gt;run(Object(PHPUnit\Framework\TestResult))
+#16 /tests/vendor/codeception/codeception/src/Codeception/SuiteManager.php(158): Codeception\PHPUnit\Runner-&gt;doEnhancedRun(Object(Codeception\Suite), Object(PHPUnit\Framework\TestResult), Array)
+#17 /tests/vendor/codeception/codeception/src/Codeception/Codecept.php(193): Codeception\SuiteManager-&gt;run(Object(Codeception\PHPUnit\Runner), Object(PHPUnit\Framework\TestResult), Array)
+#18 /tests/vendor/codeception/codeception/src/Codeception/Codecept.php(160): Codeception\Codecept-&gt;runSuite(Array, 'service_orangeo...', NULL)
+#19 /tests/vendor/codeception/codeception/src/Codeception/Command/Run.php(502): Codeception\Codecept-&gt;run('service_orangeo...')
+#20 /tests/vendor/codeception/codeception/src/Codeception/Command/Run.php(397): Codeception\Command\Run-&gt;runSuites(Array, Array)
+#21 /tests/vendor/symfony/console/Command/Command.php(255): Codeception\Command\Run-&gt;execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#22 /tests/vendor/symfony/console/Application.php(992): Symfony\Component\Console\Command\Command-&gt;run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#23 /tests/vendor/symfony/console/Application.php(255): Symfony\Component\Console\Application-&gt;doRunCommand(Object(Codeception\Command\Run), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#24 /tests/vendor/symfony/console/Application.php(148): Symfony\Component\Console\Application-&gt;doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#25 /tests/vendor/codeception/codeception/src/Codeception/Application.php(107): Symfony\Component\Console\Application-&gt;run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#26 /tests/vendor/codeception/codeception/codecept(43): Codeception\Application-&gt;run()
+#27 {main}</stack-trace>
+      </failure>
+      <steps>
+        <step start="1638402423306" stop="1638402423306" status="passed">
+          <name><![CDATA[have http header "x-api-key","TESTKEY"]]></name>
+        </step>
+        <step start="1638402423307" stop="1638402423307" status="passed">
+          <name><![CDATA[have http header "x-api-version","v1"]]></name>
+        </step>
+        <step start="1638402423307" stop="1638402423307" status="passed">
+          <name><![CDATA[have http header "content-type","application/json"]]></name>
+        </step>
+        <step start="1638402423308" stop="1638402423311" status="passed">
+          <name><![CDATA[clear queue "Orange_paymentrequest"]]></name>
+        </step>
+        <step start="1638402423312" stop="1638402423312" status="passed">
+          <name><![CDATA[clear queue "Orange_statuscheck"]]></name>
+        </step>
+        <step start="1638402423313" stop="1638402423313" status="passed">
+          <name><![CDATA[clear queue "Orange_callback"]]></name>
+        </step>
+        <step start="1638402423313" stop="1638402423314" status="passed">
+          <name><![CDATA[clear queue "default"]]></name>
+        </step>
+        <step start="1638402423314" stop="1638402423379" status="passed">
+          <name><![CDATA[send put "http://mockserver:1090/mockserver/reset"]]></name>
+        </step>
+        <step start="1638402423380" stop="1638402423381" status="passed">
+          <name><![CDATA[have in redis "string","Orange:Cashin","s:144:"a:2:{i:0;s:9:"abcd-1234";i:1;O:8:"DateTime":3:{s:4:"date";s:26:"2050-08-04 09:43:20.467598";s:13:"timezone_type";i:3;s:8:"timezone";s:3:"UTC";}}";"]]></name>
+        </step>
+        <step start="1638402423381" stop="1638402423402" status="passed">
+          <name><![CDATA[send put "http://mockserver:1090/mockserver/expectation",{"httpRequest":{"path":"/om/cashin/init"},"httpResponse":{"body":"{\n                    "message": "Payment request successfully initiated",\n     ...}]]></name>
+        </step>
+        <step start="1638402423403" stop="1638402423419" status="passed">
+          <name><![CDATA[send put "http://mockserver:1090/mockserver/expectation",{"httpRequest":{"path":"/om/cashin/pay"},"httpResponse":{"body":"{\n                    "message": "Cash in performed successfully",\n              ...}]]></name>
+        </step>
+        <step start="1638402423420" stop="1638402423507" status="passed">
+          <name><![CDATA[send post "/cashin/pay",{"amount":1000,"destination":"690754334","ptn":"9998547515","callbackUrl":"http://orangeomapp:80/ping","service":"Cashin","spRef":null}]]></name>
+        </step>
+        <step start="1638402423508" stop="1638402423510" status="passed">
+          <name><![CDATA[see response code is 201]]></name>
+        </step>
+        <step start="1638402423511" stop="1638402423513" status="passed">
+          <name><![CDATA[see response contains json {"payload":{"spRef":"","service":"Cashin","amount":1000,"destination":"690754334"},"type":"MOMO_CASHIN","callbackUrl":"http://orangeomapp:80/ping","callbackAttempt":0,"ptn":"9998547515","extTxid":...}]]></name>
+        </step>
+        <step start="1638402423513" stop="1638402423513" status="passed">
+          <name><![CDATA[grab response ]]></name>
+        </step>
+        <step start="1638402430514" stop="1638402430559" status="passed">
+          <name><![CDATA[send get "/cashin/pay/ed995caf-81c5-4aa9-b7fd-ddfd9c737da4"]]></name>
+        </step>
+        <step start="1638402430559" stop="1638402430588" status="failed">
+          <name><![CDATA[see response contains json {"payload":{"spRef":"","service":"Cashin","amount":1000,"destination":"690754334"},"type":"MOMO_CASHIN","callbackUrl":"http://orangeomapp:80/ping","callbackAttempt":1,"ptn":"9998547515","extTxid":...}]]></name>
+        </step>
+      </steps>
+      <attachments>
+        <attachment title="body" source="781980b44bcc6eac67ea35a4ef76359d7c5aad7e-attachment.txt" type="text/plain"/>
+        <attachment title="response" source="781980b44bcc6eac67ea35a4ef76359d7c5aad7e-attachment.txt" type="text/plain"/>
+      </attachments>
+      <labels>
+        <label name="testMethod" value="itCanPerformCashinWithImmediateSuccess"/>
+        <label name="testClass" value="OrangeOMCashinCest"/>
+      </labels>
+    </test-case>
+  </test-cases>
+</alr:test-suite>
