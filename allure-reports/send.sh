@@ -5,7 +5,7 @@ ALLURE_RESULTS_DIRECTORY='./express-union'
 # This url is where the Allure container is deployed. We are using localhost as example
 ALLURE_SERVER='http://172.20.0.3:5050'
 # Project ID according to existent projects in your Allure container - Check endpoint for project creation >> `[POST]/projects`
-PROJECT_ID='test-project'
+PROJECT_ID=${JOB_BASE_NAME}
 #PROJECT_ID='my-project-id'
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
@@ -21,13 +21,13 @@ done
 
 set -o xtrace
 echo "------------------SEND-RESULTS------------------"
-curl -X POST "$ALLURE_SERVER/allure-docker-service/send-results?project_id=$PROJECT_ID" -H 'Content-Type: multipart/form-data' $FILES -ik
+curl -X POST "$ALLURE_SERVER/allure-docker-service/send-results?project_id=$PROJECT_ID&force_project_creation=true" -H 'Content-Type: multipart/form-data' $FILES -ik
 
 
 #If you want to generate reports on demand use the endpoint `GET /generate-report` and disable the Automatic Execution >> `CHECK_RESULTS_EVERY_SECONDS: NONE`
 #echo "------------------GENERATE-REPORT------------------"
 EXECUTION_NAME="Build:${BUILD_NUMBER}"
-EXECUTION_FROM='http://localhost:8088/job/allure-test/'
+EXECUTION_FROM="${BUILD_URL}"
 EXECUTION_TYPE='jenkins'
 
 #You can try with a simple curl
