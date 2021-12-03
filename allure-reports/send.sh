@@ -2,6 +2,7 @@
 
 # This directory is where you have all your results locally, generally named as `allure-results`
 ALLURE_RESULTS_DIRECTORY='./express-union'
+#ALLURE_RESULTS_DIRECTORY='allure-results'
 # This url is where the Allure container is deployed. We are using localhost as example
 ALLURE_SERVER='http://172.20.0.3:5050'
 # Project ID according to existent projects in your Allure container - Check endpoint for project creation >> `[POST]/projects`
